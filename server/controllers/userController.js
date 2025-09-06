@@ -4,6 +4,7 @@ import User from '../models/User.js'
 import bcrypt from 'bcryptjs';
 import cloudinary from '../lib/cloudinary.js';
 import { protectRoute } from '../middleware/auth.js';
+
 export const signUp = async(req,res)=>{
     const {fullName,email,password,bio} = req.body;
     try{
@@ -28,7 +29,7 @@ export const signUp = async(req,res)=>{
         const token = generateToken(newUser._id);
 
         res.json({success:true, userData: newUser,message:"Account created successfully",token});
-        await newUser.save();
+        
     }
     catch(error){
         console.log(error);
@@ -41,6 +42,10 @@ export const login = async(req,res)=>{
     try{
         const {email,password} = req.body;
         const userData = await User.findOne({email});
+        if (!userData) {
+            return res.status(400).json({success: false, msg: "Invalid credentials"});
+        }
+
         const isPasswordCorrect = await bcrypt.compare(password,userData.password);
         if( !isPasswordCorrect){
             return res.status(400).json({success: false, msg: "Invalid credentials"});
