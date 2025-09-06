@@ -19,7 +19,7 @@ const LoginPage = () => {
     if(currState === 'Sign up' && !isDataSubmitted){
       setIsDataSubmitted(true);
     }
-    login(currState === "Sign up"?'signup':'login',{fullName,email,paasword,bio})
+    login(currState === "Sign up"?'signup':'login',{fullName,email,password,bio})
   }
   return (
     <div className='min-h-screen bg-cover bg-center flex items-center justify-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-2xl'>
@@ -45,7 +45,7 @@ const LoginPage = () => {
            className='p-2 border border-gray-500 rounded-md focus:outline-none 
            focus:ring-2 focus:ring-indigo-500' />
 
-          <input onChange={(e)=>setPassword(e.target.value)} value={email}
+          <input onChange={(e)=>setPassword(e.target.value)} value={password}
           type="Password" placeholder='Password' required
            className='p-2 border border-gray-500 rounded-md focus:outline-none 
            focus:ring-2 focus:ring-indigo-500' />

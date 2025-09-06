@@ -40,10 +40,10 @@ export const getMessages = async(req,res)=>{
                     {senderId: selectedUserId, receiverId: myId}
                 ]
             })
-            await Message.updateMany({senderId: selectedUserId, receiverId: myId},{ seen: false});
+            await Message.updateMany({senderId: selectedUserId, receiverId: myId},{ seen: true });
             res.json({success: true, messages});
         }catch(error){
-        res.json({success: false, msg: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 
@@ -71,16 +71,16 @@ export const sendMessage = async(req,res)=>{
             const uplaodResponse = await cloudinary.uploader.upload(image);
             imageUrl = uplaodResponse.secure_url;
         }
-        const newMessage = new Message.create({
+        const newMessage = await Message.create({
             senderId,
-            recieverId,
+            receiverId,
             text,
             image : imageUrl
         })
         // emit new message using socket.io
         const receiverSocketId = userSocketMap[receiverId];
         if(receiverSocketId){
-            io.to(receiverSocketId).emit("Message", newMessage);
+            io.to(receiverSocketId).emit("newMessage", newMessage);
         }
         
         res.json({success: true,newMessage})
