@@ -2,11 +2,7 @@
 
 A modern, real-time chat application built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring instant messaging, user profiles, and media sharing.
 
-![Chit-Chat](https://chat-app-deployment-repo-2a29.vercel.app/)
 
-## 🚀 Live Demo
-
-**Visit the live application:** [https://chat-app-deployment-repo-2a29.vercel.app/](https://chat-app-deployment-repo-2a29.vercel.app/)
 
 ## ✨ Features
 
